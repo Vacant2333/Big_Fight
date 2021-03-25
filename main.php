@@ -2,8 +2,26 @@
 use Swoole\Process;
 
 include_once('ShareMemory.php');
+include_once('StuffGroup.php');
 
+//初始化共享内存
 $SM = new ShareMemory();
+
+//Service进程,处理数据
+$process_service = new Process(function() use($SM)
+{
+	$StuffGroup = new StuffGroup();
+
+	while(True)
+	{
+
+
+
+
+		$SM->saveData('stuff', $StuffGroup->getStuffGroupData());
+		sleep(0.02);
+	}
+});
 
 //WebSocket进程,处理数据传输
 $process_ws = new Process(function() use($SM)
@@ -15,7 +33,7 @@ $process_ws = new Process(function() use($SM)
 	});
 	$ws->on('Message', function($ws, $frame) use($SM)
 	{
-		$ws->push($frame->fd, "server: {$table->get('1', 'data')}");
+		$ws->push($frame->fd, json_encode($SM->getData('stuff')));
 	});
 	$ws->on('Close', function($ws, $fd)
 	{
@@ -24,8 +42,10 @@ $process_ws = new Process(function() use($SM)
 	$ws->start();
 });
 
+//启动进程
+$process_service->start();
 $process_ws->start();
-
-
+sleep(1);
+print("Service start up now!\n");
 
 Process::wait(true);

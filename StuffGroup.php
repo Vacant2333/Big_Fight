@@ -9,13 +9,14 @@ class StuffGroup
 {
 	private $stuff_id = [];
 	private $stuff_class = [];
-	private $stuff_max_num = 50;
+	private $stuff_max_num = 10;
 	private $max_x = 200;
 	private $max_y = 200;
 
 	public function __construct()
 	{
 		$this->addStuff($this->stuff_max_num);
+		print("StuffGroup initialization complete,Number: {$this->stuff_max_num}\n");
 	}
 
 	//获得所有物资数据
