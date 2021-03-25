@@ -46,6 +46,6 @@ $process_ws = new Process(function() use($SM)
 $process_service->start();
 $process_ws->start();
 sleep(1);
-print("Service start up now!\n");
+echo "Service start up now!\n";
 
 Process::wait(true);

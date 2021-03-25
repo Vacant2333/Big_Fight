@@ -10,12 +10,12 @@ class ShareMemory
 
 	public function __construct()
 	{
-		$table = new Swoole\Table(1024);
-		$table->column('data', Swoole\Table::TYPE_STRING, 4096);
+		$table = new Swoole\Table(2048);
+		$table->column('data', Swoole\Table::TYPE_STRING, 1024*64);
 		$table->create();
 
 		$this->table = $table;
-		print("ShareMemory initialization complete,memory footprint: " . (intval($this->table->memorySize / 1024)) . " KB\n");
+		print("ShareMemory initialization complete,memory footprint: " . (intval($this->table->memorySize / 1024 / 1024)) . " MB\n");
 	}
 
 	public function saveData($name, $data)

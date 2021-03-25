@@ -9,7 +9,8 @@ class StuffGroup
 {
 	private $stuff_id = [];
 	private $stuff_class = [];
-	private $stuff_max_num = 10;
+	//MAX 1500?
+	private $stuff_max_num = 100;
 	private $max_x = 200;
 	private $max_y = 200;
 
