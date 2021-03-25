@@ -1,12 +1,11 @@
 <?php
+/*
+ * 实现: Swoole\Table
+ * 第一行: 玩家数据
+ * 第二行: 肉坐标数据
+ */
 class ShareMemory
 {
-	/*
-	 * 实现: Swoole\Table
-	 * 第一行: 玩家数据
-	 * 第二行: 肉坐标数据
-	 */
-
 	public $table;
 
 	public function __construct()
@@ -17,7 +16,7 @@ class ShareMemory
 
 		$this->table = $table;
 
-		print("ShareMemory初始化完成,内存占用:[" . (intval($this->table->memorySize / 1024)) . "] KB");
+		print("ShareMemory initialization complete,memory footprint: " . (intval($this->table->memorySize / 1024)) . " KB");
 	}
 
 	public function __destruct()
