@@ -1,7 +1,7 @@
 <?php
 include_once('Stuff.php');
 /*
- * Stuff组
+ * Stuff实体组
  * getStuffGroupData 获得所有物资数据 返回二位数组
  * resetStuff($id)   重置一个物资
  */
@@ -30,7 +30,7 @@ class StuffGroup
 		return $re;
 	}
 
-	//重置stuff
+	//重置Stuff
 	public function resetStuff($id)
 	{
 		$this->delStuff($id);
@@ -51,14 +51,14 @@ class StuffGroup
 		$this->stuff_max_num = $num;
 	}
 
-	//删除stuff
+	//删除Stuff
 	private function delStuff($id)
 	{
 		$this->delStuffId($id);
 		unset($this->stuff_class[$id]);
 	}
 
-	//添加stuff
+	//添加Stuff
 	private function addStuff($num)
 	{
 		while($num != 0)
@@ -70,7 +70,7 @@ class StuffGroup
 		}
 	}
 
-	//获得一个随机ID
+	//获得随机ID
 	private function getARandStuffId()
 	{
 		while(True)
@@ -84,6 +84,7 @@ class StuffGroup
 		}
 	}
 
+	//删除Stuff Id
 	private function delStuffId($id)
 	{
 		foreach($this->stuff_id as $key => $value)

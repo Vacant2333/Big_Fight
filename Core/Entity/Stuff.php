@@ -27,7 +27,7 @@ class Stuff
 		return $this->area;
 	}
 
-	//设置随机坐标,参数:x 和 y的最大值
+	//设置随机坐标,参数:X 和 Y的最大值
 	public function setRandCoordinate($x_max, $y_max)
 	{
 		$this->coordinate = [rand(1, $x_max), rand(1, $y_max)];

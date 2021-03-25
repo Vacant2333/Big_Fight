@@ -1,8 +1,8 @@
 <?php
 use Swoole\Process;
 
-include_once('ShareMemory.php');
-include_once('StuffGroup.php');
+include_once('Core/ShareMemory.php');
+include_once('Core/Entity/StuffGroup.php');
 
 //初始化共享内存
 $SM = new ShareMemory();
