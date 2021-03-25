@@ -2,4 +2,4 @@
 <br>
 技术栈:
 <br>
-PHP7 + SWOOLE(协程,WebScoket,layabox)
+PHP7 + SWOOLE4.5+(多进程, WebScoket) + layabox
