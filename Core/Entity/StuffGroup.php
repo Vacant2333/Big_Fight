@@ -16,7 +16,7 @@ class StuffGroup
 	public function __construct()
 	{
 		$this->addStuff($this->stuff_max_num);
-		print("StuffGroup initialization complete,Number: {$this->stuff_max_num}\n");
+		print("StuffGroup initialization complete!\n");
 	}
 
 	//获得所有物资数据
@@ -25,7 +25,12 @@ class StuffGroup
 		$re = [];
 		foreach($this->stuff_class as $id => $class)
 		{
-			$re[] = ['id' => $id, 'area' => $class->getArea(), 'coordinate' => $class->getCoordinate(), 'radius' => $class->getRadius()];
+			$re[] = [
+				'id' => $id,
+				'area' => $class->getArea(),
+				'coordinate' => $class->getCoordinate(),
+				'radius' => $class->getRadius()
+			];
 		}
 		return $re;
 	}

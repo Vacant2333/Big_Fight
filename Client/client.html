@@ -49,7 +49,7 @@ class DrawEnity
             var stuff_data = this.all_stuff_data[key];
             var stuff_class = new Ring(
                 {
-                    pos: [stuff_data['coordinate'][0], stuff_data['coordinate'][1]],
+                    pos: [stuff_data['coordinate']['x'], stuff_data['coordinate']['y']],
                     innerRadius: 0,
                     outerRadius: stuff_data['radius'],
                     fillColor: 'red',

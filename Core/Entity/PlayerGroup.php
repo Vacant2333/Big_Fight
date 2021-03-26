@@ -8,7 +8,7 @@ class PlayerGroup
 
 	public function __construct()
 	{
-		print("PlayerGroup initialization complete,Number: {$this->stuff_max_num}\n");
+		print("PlayerGroup initialization complete!\n");
 	}
 
 	//添加玩家
@@ -18,6 +18,7 @@ class PlayerGroup
 		$this->player_class[$id] = new Player($id);
 	}
 
+	//删除玩家
 	public function delPlayer($id)
 	{
 		foreach($this->player_id as $key => $value)
@@ -30,5 +31,30 @@ class PlayerGroup
 		unset($this->player_class[$id]);
 	}
 
+	//获得玩家组数据
+	public function getPlayerGroupData()
+	{
+		$re = [];
+		foreach($this->player_class as $id => $class)
+		{
+			$re[] = [
+				'id' => $id,
+				'area' => $class->getArea(),
+				'speed' => $class->getSpeed(),
+				'radius' => $class->getRadius(),
+				'direction' => $class->getDirection(),
+				'coordinate' => $class->getCoordinate()
+			];
+		}
+		return $re;
+	}
 
+	//更新一帧
+	public function update()
+	{
+		foreach($this->player_class as $id => $class)
+		{
+			$class->update();
+		}
+	}
 }

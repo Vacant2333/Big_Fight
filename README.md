@@ -4,7 +4,7 @@
 <br>
 PHP7.2+
 <br>
-<a href="https://www.swoole.com/">Swoole4.5+</a>>(多进程, WebSocket, Table)
+<a href="https://www.swoole.com/">Swoole4.5+</a>>(多进程, WebSocket)
 <br>
 <a href="https://spritejs.org/">SpiritiJS</a> v3(前端canvas渲染)
 <br>

@@ -3,7 +3,7 @@ class Player
 {
 	public $id = 0;
 	public $area = 0;
-	public $coordinate = [];
+	public $coordinate = ['x' => 0, 'y' => 0];
 	public $speed = 0.3;
 	public $direction = 24;
 
@@ -19,6 +19,7 @@ class Player
 	{
 		if($this->direction != 0)
 		{
+			//TOOD:方向
 			switch($this->direction)
 			{
 				case 3:
@@ -44,12 +45,22 @@ class Player
 					break;
 				case 24:
 					//上
-					$this->coordinate[1] -= $this->speed;
+					$this->coordinate['y'] -= $this->speed;
 					break;
 			}
 
 			//if()
 		}
+	}
+
+	public function getSpeed()
+	{
+		return $this->speed;
+	}
+
+	public function getArea()
+	{
+		return $this->area;
 	}
 
 	//获得半径
@@ -79,7 +90,7 @@ class Player
 	//设置坐标
 	public function setCoordinate($x, $y)
 	{
-		$this->coordinate($x, $y);
+		$this->coordinate = ['x' => $x, 'y' => $y];
 	}
 
 	//设置随机坐标
