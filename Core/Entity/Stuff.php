@@ -5,9 +5,8 @@
  */
 class Stuff
 {
-	public $area;
-	public $coordinate;
-	public $type = 'normal';
+	public $area = 0;
+	public $coordinate = [];
 
 	//初始化面积
 	public function __construct()

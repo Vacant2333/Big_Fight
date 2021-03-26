@@ -30,7 +30,7 @@ class StuffGroup
 		return $re;
 	}
 
-	//重置Stuff
+	//重置一个Stuff
 	public function resetStuff($id)
 	{
 		$this->delStuff($id);
@@ -53,7 +53,13 @@ class StuffGroup
 	//删除Stuff
 	private function delStuff($id)
 	{
-		$this->delStuffId($id);
+		foreach($this->stuff_id as $key => $value)
+		{
+			if($value == $id)
+			{
+				unset($this->stuff_id[$key]);
+			}
+		}
 		unset($this->stuff_class[$id]);
 	}
 
@@ -77,18 +83,6 @@ class StuffGroup
 			{
 				$this->stuff_id[] = $id;
 				return $id;
-			}
-		}
-	}
-
-	//删除Stuff Id
-	private function delStuffId($id)
-	{
-		foreach($this->stuff_id as $key => $value)
-		{
-			if($value == $id)
-			{
-				unset($this->stuff_id[$key]);
 			}
 		}
 	}

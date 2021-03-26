@@ -2,12 +2,12 @@
 <br>
 技术栈:
 <br>
-PHP7.2
+PHP7.2+
 <br>
-Swoole4.5+(多进程, WebSocket, Table)
+<a href="https://www.swoole.com/">Swoole4.5+</a>>(多进程, WebSocket, Table)
 <br>
-SpiritiJS v3(前端canvas渲染)
+<a href="https://spritejs.org/">SpiritiJS</a> v3(前端canvas渲染)
 <br>
-演示:
+演示地址:
 <br>
 http://39.96.4.47:8002/

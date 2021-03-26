@@ -1,11 +1,11 @@
 <?php
 class Player
 {
-	public $id;
-	public $area;
-	public $coordinate;
+	public $id = 0;
+	public $area = 0;
+	public $coordinate = [];
 	public $speed = 0.3;
-	public $direction = 0;
+	public $direction = 24;
 
 	//初始化 设置玩家ID,面积
 	public function __construct($id)
