@@ -2,46 +2,125 @@
 <html lang="zh">
     <head>
         <meta charset="UTF-8">
-        <title>客户端</title>
+        <title>球球大作战</title>
         <script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://unpkg.com/spritejs@3/dist/spritejs.js"></script>
     </head>
     <body>
-
     <div id="game" style="height: 800px; width: 800px;"></div>
+    </body>
+</html>
 
-    <script>
+
+
+<script>
+    //spritejs 渲染
     const {Scene, Sprite, Ring} = spritejs;
     const container = document.getElementById('game');
     const scene = new Scene(
-    {
-        container,
-        width: 800,
-        height: 800,
-    });
+        {
+            container,
+            width: 800,
+            height: 800,
+        });
     const layer = scene.layer();
 
-    const box = new Sprite(
+    //渲染边框border
+    const border = new Sprite(
+        {
+            anchor: [0, 0],
+            size: [798, 798],
+            pos: [0, 0],
+            bgcolor: '#9e9e9e',
+            borderWidth: 1,
+            borderRadius: 8,
+        });
+    layer.append(border);
+
+
+
+    wsServer = 'ws://39.96.4.47:8001';
+    websocket = new WebSocket(wsServer);
+
+    websocket.onopen = function (evt)
     {
-        anchor: [0, 0],
-        size: [798, 798],
-        pos: [0, 0],
-        //bgcolor: 'white',
-        borderWidth: 1,
-        borderRadius: 8,
-    });
+        console.log("Connected to WebSocket server.");
+    };
 
-    const ring = new Ring(
+    websocket.onclose = function (evt)
     {
-        pos: [250, 250],
-        innerRadius: 0,
-        outerRadius: 25,
-        fillColor: 'red',
-    });
+        console.log("Disconnected");
+    };
 
-    layer.append(ring);
+    websocket.onmessage = function (evt)
+    {
+        console.log(evt.data);
+        DE.setAllStuffData(JSON.parse(evt.data));
+    };
 
-    layer.append(box);
-    </script>
-    </body>
-</html>
+    websocket.onerror = function (evt, e)
+    {
+        console.log('Error occured: ' + evt.data);
+    };
+
+
+
+    class DrawEnity
+    {
+        //渲染Stuff
+        all_stuff_data = JSON.parse('[{"id":2358,"area":23,"coordinate":[553,381]},{"id":1278,"area":18,"coordinate":[751,122]},{"id":1397,"area":11,"coordinate":[70,426]},{"id":395,"area":24,"coordinate":[683,60]},{"id":1399,"area":12,"coordinate":[253,301]},{"id":2760,"area":19,"coordinate":[669,595]},{"id":3836,"area":21,"coordinate":[794,97]},{"id":2063,"area":17,"coordinate":[352,29]},{"id":2350,"area":19,"coordinate":[415,182]},{"id":2966,"area":25,"coordinate":[347,724]},{"id":4082,"area":17,"coordinate":[594,252]},{"id":3356,"area":19,"coordinate":[527,710]},{"id":48,"area":11,"coordinate":[458,197]},{"id":1367,"area":19,"coordinate":[603,206]},{"id":3304,"area":24,"coordinate":[36,521]},{"id":562,"area":21,"coordinate":[294,440]},{"id":3944,"area":15,"coordinate":[315,316]},{"id":1592,"area":19,"coordinate":[700,264]},{"id":1184,"area":10,"coordinate":[35,157]},{"id":2032,"area":24,"coordinate":[687,124]},{"id":2197,"area":13,"coordinate":[307,267]},{"id":103,"area":25,"coordinate":[257,71]},{"id":2551,"area":17,"coordinate":[589,591]},{"id":4025,"area":20,"coordinate":[66,715]},{"id":3531,"area":12,"coordinate":[475,356]}]');
+        all_stuff_class = [];
+
+        drawAllStuff()
+        {
+            this.clearAllStuff();
+            for(var key = 0; key < this.all_stuff_data.length; key++)
+            {
+                var stuff_data = this.all_stuff_data[key];
+                var stuff_class = new Ring(
+                    {
+                        pos: [stuff_data['coordinate'][0], stuff_data['coordinate'][1]],
+                        innerRadius: 0,
+                        outerRadius: stuff_data['area'],
+                        fillColor: 'red',
+                    });
+                layer.append(stuff_class);
+                this.all_stuff_class.push(stuff_class);
+            }
+        }
+
+        setAllStuffData(data)
+        {
+            this.all_stuff_data = data;
+        }
+
+        //清空AllStuffClass
+        clearAllStuff()
+        {
+            for(var key = 0; key < this.all_stuff_class.length; key++)
+            {
+                //清除元素
+                this.all_stuff_class[key].remove();
+            }
+            //清空数组
+            this.all_stuff_class.splice(0);
+        }
+    }
+
+
+    var DE = new DrawEnity();
+    function update()
+    {
+        try
+        {
+            websocket.send(1);
+            DE.drawAllStuff();
+            console.log('update complete.');
+        }
+        catch (e)
+        {
+            console.log('update faild.');
+        }
+    }
+    //setInterval('update()', 50);
+</script>

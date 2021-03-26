@@ -14,12 +14,16 @@ $process_service = new Process(function() use($SM)
 
 	while(True)
 	{
-
-
+		if(rand(1,100) >= 97)
+		{
+			$rand_id = $StuffGroup->getARealRandStuffId();
+			$StuffGroup->resetStuff($rand_id);
+		}
 
 
 		$SM->saveData('stuff', $StuffGroup->getStuffGroupData());
-		sleep(0.02);
+
+		sleep(1);
 	}
 });
 
@@ -29,7 +33,7 @@ $process_ws = new Process(function() use($SM)
 	$ws = new Swoole\WebSocket\Server('0.0.0.0', 8001);
 	$ws->on('Open', function($ws, $request)
 	{
-		$ws->push($request->fd, "hello, welcome\n");
+		//$ws->push($request->fd, "hello, welcome\n");
 	});
 	$ws->on('Message', function($ws, $frame) use($SM)
 	{
@@ -37,7 +41,7 @@ $process_ws = new Process(function() use($SM)
 	});
 	$ws->on('Close', function($ws, $fd)
 	{
-		echo "client-{$fd} is closed\n";
+		//echo "client-{$fd} is closed\n";
 	});
 	$ws->start();
 });

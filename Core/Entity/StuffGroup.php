@@ -10,9 +10,9 @@ class StuffGroup
 	private $stuff_id = [];
 	private $stuff_class = [];
 	//MAX 1500?
-	private $stuff_max_num = 100;
-	private $max_x = 200;
-	private $max_y = 200;
+	private $stuff_max_num = 25;
+	private $max_x = 800;
+	private $max_y = 800;
 
 	public function __construct()
 	{
@@ -36,6 +36,12 @@ class StuffGroup
 	{
 		$this->delStuff($id);
 		$this->addStuff(1);
+	}
+
+	//获取一个随机 存在的物资ID
+	public function getARealRandStuffId()
+	{
+		return $this->stuff_id[array_rand($this->stuff_id, 1)];
 	}
 
 	//更新XY最大值
