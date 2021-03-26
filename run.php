@@ -42,7 +42,21 @@ $process_ws = new Process(function() use($SM)
 	$ws->start();
 });
 
+$process_client = new Process(function()
+{
+	$http = new Swoole\Http\Server('0.0.0.0', 8002);
+
+	$http->on('Request', function ($request, $response) {
+		$response->header('Content-Type', 'text/html; charset=utf-8');
+		$response->end(file_get_contents('Client/client.html'));
+	});
+
+	$http->start();
+});
+
 //启动进程
+$process_client->start();
+
 $process_service->start();
 $process_ws->start();
 sleep(1);

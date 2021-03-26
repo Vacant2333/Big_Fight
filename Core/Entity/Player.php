@@ -1,9 +1,10 @@
 <?php
 class Player
 {
-	public id;
-	public coordinate;
-	public direction = 0;
+	public $id;
+	public $coordinate;
+	public $direction = 0;
+	public $area;
 
 	public function __construct($id)
 	{
@@ -20,7 +21,7 @@ class Player
 		$this->coordinate($x, $y);
 	}
 
-	public function setRandCoordinate($max_x, $max_y)
+	public function setRandCoordinate($x_max, $y_max)
 	{
 		$this->coordinate = [rand(1, $x_max), rand(1, $y_max)];
 	}

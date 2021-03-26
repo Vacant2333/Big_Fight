@@ -45,7 +45,7 @@ class StuffGroup
 		$this->max_y = $max_y;
 	}
 
-	//更新Sutff最大数量
+	//更新Stuff最大数量
 	public function setStuffMaxNum($num)
 	{
 		$this->addStuff($num - $this->stuff_max_num);
