@@ -4,6 +4,9 @@ use Swoole\Process;
 include_once('Core/ShareMemory.php');
 include_once('Core/Entity/StuffGroup.php');
 
+define('MAP_MAX_X', 800);
+define('MAP_MAX_Y', 800);
+
 //初始化共享内存
 $SM = new ShareMemory();
 
@@ -43,6 +46,7 @@ $process_ws = new Process(function() use($SM)
 	$ws->start();
 });
 
+//客户端HTTP服务器
 $process_client = new Process(function()
 {
 	$http = new Swoole\Http\Server('0.0.0.0', 8002);

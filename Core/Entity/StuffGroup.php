@@ -9,10 +9,9 @@ class StuffGroup
 {
 	private $stuff_id = [];
 	private $stuff_class = [];
+
 	//MAX 1500?
-	private $stuff_max_num = 25;
-	private $max_x = 800;
-	private $max_y = 800;
+	private $stuff_max_num = 30;
 
 	public function __construct()
 	{
@@ -26,7 +25,7 @@ class StuffGroup
 		$re = [];
 		foreach($this->stuff_class as $id => $class)
 		{
-			$re[] = ['id' => $id, 'area' => $class->getArea(), 'coordinate' => $class->getCoordinate()];
+			$re[] = ['id' => $id, 'area' => $class->getArea(), 'coordinate' => $class->getCoordinate(), 'radius' => $class->getRadius()];
 		}
 		return $re;
 	}
@@ -42,13 +41,6 @@ class StuffGroup
 	public function getARealRandStuffId()
 	{
 		return $this->stuff_id[array_rand($this->stuff_id, 1)];
-	}
-
-	//更新XY最大值
-	public function setXYMax($max_x, $max_y)
-	{
-		$this->max_x = $max_x;
-		$this->max_y = $max_y;
 	}
 
 	//更新Stuff最大数量
@@ -70,9 +62,7 @@ class StuffGroup
 	{
 		while($num != 0)
 		{
-			$stuff = new Stuff();
-			$stuff->setRandCoordinate($this->max_x, $this->max_y);
-			$this->stuff_class[$this->getARandStuffId()] = $stuff;
+			$this->stuff_class[$this->getARandStuffId()] = new Stuff();
 			$num--;
 		}
 	}

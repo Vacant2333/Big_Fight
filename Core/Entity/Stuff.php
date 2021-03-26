@@ -12,13 +12,20 @@ class Stuff
 	//初始化面积
 	public function __construct()
 	{
-		$this->area = rand(10, 25);
+		$this->area = rand(15, 33);
+		$this->setRandCoordinate();
 	}
 
 	//获得坐标
 	public function getCoordinate()
 	{
 		return $this->coordinate ? $this->coordinate : False;
+	}
+
+	//获得半径
+	public function getRadius()
+	{
+		return sqrt($this->area / 3.14);
 	}
 
 	//获得面积
@@ -28,8 +35,8 @@ class Stuff
 	}
 
 	//设置随机坐标,参数:X 和 Y的最大值
-	public function setRandCoordinate($x_max, $y_max)
+	public function setRandCoordinate()
 	{
-		$this->coordinate = [rand(1, $x_max), rand(1, $y_max)];
+		$this->coordinate = [rand(0, MAP_MAX_X), rand(0, MAP_MAX_Y)];
 	}
 }
