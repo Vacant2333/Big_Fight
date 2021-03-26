@@ -2,10 +2,10 @@
 class Player
 {
 	public $id;
-	public $coordinate;
-	public $direction = 0;
 	public $area;
+	public $coordinate;
 	public $speed = 0.3;
+	public $direction = 0;
 
 	//初始化 设置玩家ID,面积
 	public function __construct($id)
@@ -22,7 +22,7 @@ class Player
 			switch($this->direction)
 			{
 				case 3:
-
+					//
 					break;
 				case 6:
 
@@ -48,7 +48,7 @@ class Player
 					break;
 			}
 
-			if()
+			//if()
 		}
 	}
 
