@@ -2,10 +2,12 @@
 <br>
 技术栈:
 <br>
-PHP7.2+ + Swoole4.5+(多进程, WebSocket, Table)
+PHP7.2
 <br>
-Swoole实现多进程
+Swoole4.5+(多进程, WebSocket, Table)
 <br>
-Swoole\Table实现进程通信
+SpiritiJS v3(前端canvas渲染)
 <br>
-前后端采用WebSocket通信
+演示:
+<br>
+http://39.96.4.47:8002/

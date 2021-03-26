@@ -14,16 +14,8 @@ $process_service = new Process(function() use($SM)
 
 	while(True)
 	{
-		if(rand(1,100) >= 97)
-		{
-			$rand_id = $StuffGroup->getARealRandStuffId();
-			$StuffGroup->resetStuff($rand_id);
-		}
-
-
 		$SM->saveData('stuff', $StuffGroup->getStuffGroupData());
-
-		sleep(1);
+		sleep(0.05);
 	}
 });
 
@@ -37,7 +29,12 @@ $process_ws = new Process(function() use($SM)
 	});
 	$ws->on('Message', function($ws, $frame) use($SM)
 	{
-		$ws->push($frame->fd, json_encode($SM->getData('stuff')));
+		switch($frame->data)
+		{
+			case 'update':
+				$ws->push($frame->fd, json_encode([$frame->data, $SM->getData('stuff')]));
+				break;
+		}
 	});
 	$ws->on('Close', function($ws, $fd)
 	{
@@ -60,9 +57,9 @@ $process_client = new Process(function()
 
 //启动进程
 $process_client->start();
-
 $process_service->start();
 $process_ws->start();
+
 sleep(1);
 echo "Service start up now!\n";
 
