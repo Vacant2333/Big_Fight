@@ -4,8 +4,8 @@ class Player
 	public $id = 0;
 	public $area = 300;
 	public $coordinate = ['x' => 0, 'y' => 0];
-	public $speed = 0.13 / REFRESH_RATE;
-	public $direction = 24;
+	public $speed = 0.08 / REFRESH_RATE;
+	public $direction = 0;
 
 	//初始化 设置玩家ID,面积
 	public function __construct($id)
@@ -20,11 +20,14 @@ class Player
 		{
 			$x = $this->coordinate['x'];
 			$y = $this->coordinate['y'];
+			//斜走的速度
+			$bevel_speed = $this->speed / sqrt(2);
 			switch($this->getDirection())
 			{
 				case 3:
 					//右上
-
+					$x += $bevel_speed;
+					$y -= $bevel_speed;
 					break;
 				case 6:
 					//右
@@ -32,7 +35,8 @@ class Player
 					break;
 				case 9:
 					//右下
-
+					$x += $bevel_speed;
+					$y += $bevel_speed;
 					break;
 				case 12:
 					//下
@@ -40,7 +44,8 @@ class Player
 					break;
 				case 15:
 					//左下
-
+					$x -= $bevel_speed;
+					$y += $bevel_speed;
 					break;
 				case 18:
 					//左
@@ -48,7 +53,8 @@ class Player
 					break;
 				case 21:
 					//左上
-
+					$x -= $bevel_speed;
+					$y -= $bevel_speed;
 					break;
 				case 24:
 					//上
