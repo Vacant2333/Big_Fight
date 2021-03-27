@@ -2,9 +2,9 @@
 class Player
 {
 	public $id = 0;
-	public $area = 150;
+	public $area = 300;
 	public $coordinate = ['x' => 0, 'y' => 0];
-	public $speed = 0.1 / REFRESH_RATE;
+	public $speed = 0.13 / REFRESH_RATE;
 	public $direction = 24;
 
 	//初始化 设置玩家ID,面积
@@ -16,31 +16,38 @@ class Player
 	//更新一帧
 	public function update()
 	{
-		if($this->direction != 0)
+		if($this->getDirection() != 0)
 		{
 			$x = $this->coordinate['x'];
 			$y = $this->coordinate['y'];
-			switch($this->direction)
+			switch($this->getDirection())
 			{
 				case 3:
-					//
-					break;
-				case 6:
+					//右上
 
 					break;
+				case 6:
+					//右
+					$x += $this->speed;
+					break;
 				case 9:
+					//右下
 
 					break;
 				case 12:
-
+					//下
+					$y += $this->speed;
 					break;
 				case 15:
+					//左下
 
 					break;
 				case 18:
-
+					//左
+					$x -= $this->speed;
 					break;
 				case 21:
+					//左上
 
 					break;
 				case 24:

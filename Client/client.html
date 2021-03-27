@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>球球大作战</title>
-        <script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js"></script>
+
         <script src="https://unpkg.com/spritejs@3/dist/spritejs.js"></script>
     </head>
     <body>
@@ -46,8 +46,8 @@ class StageDraw
     draw()
     {
         this.clearClass();
-        this.drawPlayer();
         this.drawStuff();
+        this.drawPlayer();
     }
 
     //清空class
@@ -113,13 +113,10 @@ class StageDraw
         }
     }
 }
-
-
 var SD = new StageDraw();
 
 //WebScoket
 websocket = new WebSocket('ws://39.96.4.47:8001');
-
 websocket.onopen = function(event)
 {
     console.log("Connected to WebSocket server.");
@@ -128,14 +125,12 @@ websocket.onopen = function(event)
     setInterval(function()
     {
         websocket.send('update');
-    }, 50);
+    }, 40);
 };
-
 websocket.onclose = function(event)
 {
     console.log("Disconnected");
 };
-
 websocket.onmessage = function(event)
 {
     data = JSON.parse(event.data);
@@ -148,4 +143,24 @@ websocket.onmessage = function(event)
             break;
     }
 };
+
+//监控鼠标
+document.onkeydown = function(event)
+{
+    switch(event.keyCode)
+    {
+        case 65:
+            websocket.send('setPlayerDirection 18');
+            break;
+        case 68:
+            websocket.send('setPlayerDirection 6');
+            break;
+        case 83:
+            websocket.send('setPlayerDirection 12');
+            break;
+        case 87:
+            websocket.send('setPlayerDirection 24');
+            break;
+    }
+}
 </script>

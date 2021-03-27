@@ -33,6 +33,12 @@ class PlayerGroup
 		unset($this->player_class[$id]);
 	}
 
+	//设置玩家方向
+	public function setPlayerDirection($id, $direction)
+	{
+		$this->player_class[$id]->setDirection($direction);
+	}
+
 	//获得玩家组数据
 	public function getPlayerGroupData()
 	{

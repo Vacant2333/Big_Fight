@@ -18,8 +18,6 @@ class ServerProcess
 
 	public function run()
 	{
-		$this->PlayerGroup->addPlayer(111);
-
 		while(1)
 		{
 			//处理指令
@@ -35,6 +33,9 @@ class ServerProcess
 							break;
 						case 'delPlayer':
 							$this->PlayerGroup->delPlayer(...$command['args']);
+							break;
+						case 'setPlayerDirection':
+							$this->PlayerGroup->setPlayerDirection(...$command['args']);
 							break;
 					}
 				}

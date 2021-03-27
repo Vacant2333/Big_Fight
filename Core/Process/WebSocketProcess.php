@@ -15,7 +15,9 @@ class WebSocketProcess
 		});
 		$this->WebSocket->on('Message', function($ws, $frame)
 		{
-			switch($frame->data)
+			$command = explode(' ', $frame->data)[0];
+			$args = array_slice(explode(' ', $frame->data), 1);
+			switch($command)
 			{
 				case 'update':
 					$ws->push($frame->fd, json_encode([
@@ -25,6 +27,9 @@ class WebSocketProcess
 								'stuff' => $this->SM->getData('stuff')
 							]]
 					));
+					break;
+				case 'setPlayerDirection':
+					$this->SM->addCommand('setPlayerDirection', [$frame->fd, $args[0]]);
 					break;
 			}
 		});
