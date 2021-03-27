@@ -3,10 +3,12 @@ class ServerProcess
 {
 	public $StuffGroup;
 	public $PlayerGroup;
+	public $SM;
 
-	public function __construct()
+	public function __construct($SM)
 	{
 		//初始化
+		$this->SM = $SM;
 		$this->PlayerGroup = new PlayerGroup();
 		print("PlayerGroup initialization complete!\n");
 		$this->StuffGroup = new StuffGroup();
@@ -20,15 +22,27 @@ class ServerProcess
 
 		while(1)
 		{
+			$command_data = $this->SM->getData('command');
+
+			if($command_data != NULL)
+			{
+				foreach($command_data as $command)
+				{
+					switch($command['command'])
+					{
+						case 'addPlayer':
+							$this->PlayerGroup->addPlayer(...$command['args']);
+							break;
+
+					}
+				}
+				$this->SM->clearCommand();
+			}
+
+
+
 			$this->PlayerGroup->update();
-			sleep(1 / REFRESH_RATE);
+			sleep(50 / REFRESH_RATE);
 		}
-		/*
-		Swoole\Timer::tick(((1 * 1000) / REFRESH_RATE), function()
-		{
-			$this->PlayerGroup->update();
-			sleep(0.01);
-		});
-		*/
 	}
 }

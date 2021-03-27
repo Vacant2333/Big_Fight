@@ -142,7 +142,7 @@ websocket.onmessage = function (event)
     switch(data['name'])
     {
         case 'update':
-            console.log(data['data']['player']);
+            console.log(data);
             SD.setData('player', data['data']['player']);
             SD.setData('stuff', data['data']['stuff']);
             SD.draw();

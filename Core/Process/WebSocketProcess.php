@@ -2,29 +2,36 @@
 class WebSocketProcess
 {
 	public $WebSocket;
+	public $SM;
 
-	public function __construct($port)
+	public function __construct($port, $SM)
 	{
+		$this->SM = $SM;
 		$this->WebSocket = new Swoole\WebSocket\Server('0.0.0.0', $port);
 
 		$this->WebSocket->on('Open', function($ws, $request)
 		{
-			$this->PlayerGroup->addPlayer($request->fd);
+			$this->SM->addCommand('addPlayer', [$request->fd]);
 		});
 		$this->WebSocket->on('Message', function($ws, $frame)
 		{
-
+			//var_dump($this->SM->getData('player'));
 			switch($frame->data)
 			{
 				case 'update':
-					//var_dump($this->PlayerGroup->getPlayerGroupData());
-					$ws->push($frame->fd, json_encode(['name' => 'update', 'data' => ['player' => $this->PlayerGroup->getPlayerGroupData(), 'stuff' => $this->StuffGroup->getStuffGroupData()]]));
+					$ws->push($frame->fd, json_encode([
+							'name' => 'update',
+							'data' => [
+								'player' => $this->SM->getData('player'),
+								'stuff' => $this->SM->getData('stuff')
+							]]
+					));
 					break;
 			}
 		});
 		$this->WebSocket->on('Close', function($ws, $fd)
 		{
-			$this->PlayerGroup->delPlayer($fd);
+			//$this->PlayerGroup->delPlayer($fd);
 		});
 	}
 
