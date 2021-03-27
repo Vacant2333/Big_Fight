@@ -2,16 +2,15 @@
 class Player
 {
 	public $id = 0;
-	public $area = 0;
+	public $area = 150;
 	public $coordinate = ['x' => 0, 'y' => 0];
-	public $speed = 0.3;
+	public $speed = 20 / REFRESH_RATE;
 	public $direction = 24;
 
 	//初始化 设置玩家ID,面积
 	public function __construct($id)
 	{
 		$this->id = $id;
-		$this->area = rand(25, 60);
 	}
 
 	//更新一帧

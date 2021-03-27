@@ -7,23 +7,20 @@
         <script src="https://unpkg.com/spritejs@3/dist/spritejs.js"></script>
     </head>
     <body>
-    <div id="game" style="height: 800px; width: 800px;"></div>
+    <div id="stage" style="height: 800px; width: 800px;"></div>
     </body>
 </html>
 
 <script>
-//spritejs 渲染
+//SpriteJS
 const {Scene, Sprite, Ring} = spritejs;
-const container = document.getElementById('game');
+const container = document.getElementById('stage');
 const scene = new Scene(
     {
         container,
         width: 800,
-        height: 800,
+        height: 800
     });
-const layer = scene.layer();
-
-//渲染边框border
 const border = new Sprite(
     {
         anchor: [0, 0],
@@ -31,19 +28,59 @@ const border = new Sprite(
         pos: [0, 0],
         bgcolor: '#9e9e9e',
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 5
     });
+const layer = scene.layer();
 layer.append(border);
-
-//渲染类
-class DrawEnity
+</script>
+<script>
+class StageDraw
 {
     all_stuff_data = [];
-    all_stuff_class = [];
+    all_stuff_class =[];
 
-    drawAllStuff()
+    all_player_data = [];
+    all_player_class = [];
+
+    //渲染
+    draw()
     {
-        this.clearAllStuff();
+        this.clearClass();
+        this.drawPlayer();
+        this.drawStuff();
+    }
+
+    //清空class
+    clearClass()
+    {
+        for(var key = 0; key < this.all_stuff_class.length; key++)
+        {
+            this.all_stuff_class[key].remove();
+        }
+        for(var key = 0; key < this.all_player_class.length; key++)
+        {
+            this.all_player_class[key].remove();
+        }
+
+        this.all_stuff_class.splice(0);
+        this.all_player_class.splice(0);
+    }
+
+    setData(name, data)
+    {
+        switch(name)
+        {
+            case 'stuff':
+                this.all_stuff_data = data;
+                break;
+            case 'player':
+                this.all_player_data = data;
+                break;
+        }
+    }
+
+    drawStuff()
+    {
         for(var key = 0; key < this.all_stuff_data.length; key++)
         {
             var stuff_data = this.all_stuff_data[key];
@@ -52,54 +89,64 @@ class DrawEnity
                     pos: [stuff_data['coordinate']['x'], stuff_data['coordinate']['y']],
                     innerRadius: 0,
                     outerRadius: stuff_data['radius'],
-                    fillColor: 'red',
+                    fillColor: '#ff5722e6',
                 });
             layer.append(stuff_class);
             this.all_stuff_class.push(stuff_class);
         }
     }
 
-    setAllStuffData(data)
+    drawPlayer()
     {
-        this.all_stuff_data = data;
-    }
-
-    //清空AllStuffClass
-    clearAllStuff()
-    {
-        for(var key = 0; key < this.all_stuff_class.length; key++)
+        for(var key = 0; key < this.all_player_data.length; key++)
         {
-            //清除元素
-            this.all_stuff_class[key].remove();
+            var player_data = this.all_player_data[key];
+            var player_class = new Ring(
+                {
+                    pos: [player_data['coordinate']['x'], player_data['coordinate']['y']],
+                    innerRadius: 0,
+                    outerRadius: player_data['radius'],
+                    fillColor: '#03a9f4bf',
+                });
+            layer.append(player_class);
+            this.all_player_class.push(player_class);
         }
-        //清空数组
-        this.all_stuff_class.splice(0);
     }
 }
 
-var DE = new DrawEnity();
 
-//更新数据
-function update()
-{
-    websocket.send('update');
-    DE.drawAllStuff();
-}
+var SD = new StageDraw();
 
-//WebScoket通信
+//WebScoket
 websocket = new WebSocket('ws://39.96.4.47:8001');
-websocket.onopen = function (evt)
+
+websocket.onopen = function (event)
 {
     console.log("Connected to WebSocket server.");
-    //连接成功 计时器循环
-    setInterval('update()', 50);
+
+    //连接成功 发送更新请求
+    setInterval(function()
+    {
+        websocket.send('update');
+    }, 50);
 };
-websocket.onclose = function (evt)
+
+websocket.onclose = function (event)
 {
     console.log("Disconnected");
 };
-websocket.onmessage = function (evt)
+
+websocket.onmessage = function (event)
 {
-    DE.setAllStuffData(JSON.parse(evt.data)[1]);
+    data = JSON.parse(event.data);
+    switch(data['name'])
+    {
+        case 'update':
+            console.log(data['data']['player']);
+            SD.setData('player', data['data']['player']);
+            SD.setData('stuff', data['data']['stuff']);
+            SD.draw();
+            break;
+    }
 };
 </script>

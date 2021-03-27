@@ -11,7 +11,7 @@ class Stuff
 	//初始化面积
 	public function __construct()
 	{
-		$this->area = rand(15, 33);
+		$this->area = rand(25, 45);
 		$this->setRandCoordinate();
 	}
 

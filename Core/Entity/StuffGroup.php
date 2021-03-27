@@ -16,7 +16,6 @@ class StuffGroup
 	public function __construct()
 	{
 		$this->addStuff($this->stuff_max_num);
-		print("StuffGroup initialization complete!\n");
 	}
 
 	//获得所有物资数据

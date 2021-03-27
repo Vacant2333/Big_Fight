@@ -4,68 +4,44 @@ use Swoole\Process;
 define('MAP_MAX_X', 800);
 define('MAP_MAX_Y', 800);
 
+define('REFRESH_RATE', 15);
+
+define('HTTP_PORT', 8002);
+define('WEBSOCKET_PORT', 8001);
+
 include_once('Core/Entity/StuffGroup.php');
 include_once('Core/Entity/PlayerGroup.php');
 
-//初始化
-$StuffGroup = new StuffGroup();
-$PlayerGroup = new PlayerGroup();
+include_once('Core/ShareMemory.php');
+include_once('Core/Process/HttpProcess.php');
+include_once('Core/Process/ServerProcess.php');
+include_once('Core/Process/WebSocketProcess.php');
 
-//Service进程,处理数据
-$process_service = new Process(function() use($StuffGroup, $PlayerGroup)
+$SM = new ShareMemory();
+print("ShareMemory initialization complete,memory footprint: " . (intval($SM->table->memorySize / 1024 / 1024)) . " MB\n");
+
+//Server进程
+$process_server = new Process(function()
 {
-	while(True)
-	{
-		$PlayerGroup->update();
-		sleep(0.05);
-	}
+	(new ServerProcess())->run();
 });
 
-//WebSocket进程,处理数据传输
-$process_ws = new Process(function() use($StuffGroup, $PlayerGroup)
-{
-	$ws = new Swoole\WebSocket\Server('0.0.0.0', 8001);
-	$ws->on('Open', function($ws, $request)
-	{
-
-	});
-	$ws->on('Message', function($ws, $frame) use($StuffGroup, $PlayerGroup)
-	{
-		switch($frame->data)
-		{
-			case 'update':
-				$ws->push($frame->fd, json_encode([$frame->data, $StuffGroup->getStuffGroupData()]));
-				break;
-		}
-	});
-	$ws->on('Close', function($ws, $fd)
-	{
-
-	});
-
-	print("Websocket server initialization complete!\n");
-	$ws->start();
-});
-
-//客户端HTTP服务器
+//客户端HTTP进程
 $process_client = new Process(function()
 {
-	$http = new Swoole\Http\Server('0.0.0.0', 8002);
+	(new HttpProcess(HTTP_PORT))->run();
+});
 
-	$http->on('Request', function($request, $response)
-	{
-		$response->header('Content-Type', 'text/html; charset=utf-8');
-		$response->end(file_get_contents('Client/client.html'));
-	});
-
-	print("Client http server initialization complete!\n");
-	$http->start();
+//WebSocket进程
+$process_websocket = new Process(function()
+{
+	(new WebSocketProcess(WEBSOCKET_PORT))->run();
 });
 
 //启动进程
+$process_server->start();
 $process_client->start();
-$process_service->start();
-$process_ws->start();
+$process_websocket->start();
 
-echo "Main service start up now!\n";
+print("Server start up now!\n");
 Process::wait(true);

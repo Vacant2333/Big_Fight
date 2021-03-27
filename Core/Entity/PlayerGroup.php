@@ -5,10 +5,11 @@ class PlayerGroup
 {
 	public $player_id = [];
 	public $player_class = [];
+	public $test = 1;
 
 	public function __construct()
 	{
-		print("PlayerGroup initialization complete!\n");
+
 	}
 
 	//添加玩家
@@ -16,6 +17,7 @@ class PlayerGroup
 	{
 		$this->player_id[] = $id;
 		$this->player_class[$id] = new Player($id);
+		$this->player_class[$id]->setRandCoordinate();
 	}
 
 	//删除玩家
