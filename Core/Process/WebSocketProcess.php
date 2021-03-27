@@ -15,7 +15,6 @@ class WebSocketProcess
 		});
 		$this->WebSocket->on('Message', function($ws, $frame)
 		{
-			//var_dump($this->SM->getData('player'));
 			switch($frame->data)
 			{
 				case 'update':
@@ -31,7 +30,7 @@ class WebSocketProcess
 		});
 		$this->WebSocket->on('Close', function($ws, $fd)
 		{
-			//$this->PlayerGroup->delPlayer($fd);
+			$this->SM->addCommand('delPlayer', [$fd]);
 		});
 	}
 

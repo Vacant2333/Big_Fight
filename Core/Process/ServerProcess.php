@@ -22,8 +22,8 @@ class ServerProcess
 
 		while(1)
 		{
+			//处理指令
 			$command_data = $this->SM->getData('command');
-
 			if($command_data != NULL)
 			{
 				foreach($command_data as $command)
@@ -33,16 +33,18 @@ class ServerProcess
 						case 'addPlayer':
 							$this->PlayerGroup->addPlayer(...$command['args']);
 							break;
-
+						case 'delPlayer':
+							$this->PlayerGroup->delPlayer(...$command['args']);
+							break;
 					}
 				}
 				$this->SM->clearCommand();
 			}
 
-
-
 			$this->PlayerGroup->update();
-			sleep(50 / REFRESH_RATE);
+			$this->SM->setData('player', $this->PlayerGroup->getPlayerGroupData());
+			$this->SM->setData('stuff', $this->StuffGroup->getStuffGroupData());
+			sleep(1 / REFRESH_RATE);
 		}
 	}
 }

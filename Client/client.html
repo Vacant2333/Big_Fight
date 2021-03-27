@@ -120,7 +120,7 @@ var SD = new StageDraw();
 //WebScoket
 websocket = new WebSocket('ws://39.96.4.47:8001');
 
-websocket.onopen = function (event)
+websocket.onopen = function(event)
 {
     console.log("Connected to WebSocket server.");
 
@@ -131,20 +131,19 @@ websocket.onopen = function (event)
     }, 50);
 };
 
-websocket.onclose = function (event)
+websocket.onclose = function(event)
 {
     console.log("Disconnected");
 };
 
-websocket.onmessage = function (event)
+websocket.onmessage = function(event)
 {
     data = JSON.parse(event.data);
     switch(data['name'])
     {
         case 'update':
-            console.log(data);
-            SD.setData('player', data['data']['player']);
             SD.setData('stuff', data['data']['stuff']);
+            SD.setData('player', data['data']['player']);
             SD.draw();
             break;
     }

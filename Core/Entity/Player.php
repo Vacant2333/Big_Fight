@@ -4,7 +4,7 @@ class Player
 	public $id = 0;
 	public $area = 150;
 	public $coordinate = ['x' => 0, 'y' => 0];
-	public $speed = 20 / REFRESH_RATE;
+	public $speed = 0.1 / REFRESH_RATE;
 	public $direction = 24;
 
 	//初始化 设置玩家ID,面积
@@ -18,7 +18,8 @@ class Player
 	{
 		if($this->direction != 0)
 		{
-			//TOOD:方向
+			$x = $this->coordinate['x'];
+			$y = $this->coordinate['y'];
 			switch($this->direction)
 			{
 				case 3:
@@ -44,11 +45,14 @@ class Player
 					break;
 				case 24:
 					//上
-					$this->coordinate['y'] -= $this->speed;
+					$y -= $this->speed;
 					break;
 			}
-
-			//if()
+			//处理出界
+			$this->coordinate = [
+					'x' => ($x < 0 or $x > MAP_MAX_X) ? (($x < 0) ? 0 : MAP_MAX_X) : $x,
+					'y' => ($y < 0 or $y > MAP_MAX_Y) ? (($y < 0) ? 0 : MAP_MAX_Y) : $y
+			];
 		}
 	}
 
