@@ -12,7 +12,7 @@ class ShareMemory
 	public function __construct()
 	{
 		$table = new Swoole\Table(64);
-		$table->column('data', Swoole\Table::TYPE_STRING, 32*1024*16);
+		$table->column('data', Swoole\Table::TYPE_STRING, 64*1024*16);
 		$table->create();
 
 		$this->table = $table;

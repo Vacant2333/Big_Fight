@@ -17,20 +17,23 @@ class WebSocketProcess
 		{
 			$command = explode(' ', $frame->data)[0];
 			$args = array_slice(explode(' ', $frame->data), 1);
-			switch($command)
+			if($this->WebSocket->isEstablished($frame->fd))
 			{
-				case 'update':
-					$ws->push($frame->fd, json_encode([
-							'name' => 'update',
-							'data' => [
-								'player' => $this->SM->getData('player'),
-								'stuff' => $this->SM->getData('stuff')
-							]]
-					));
-					break;
-				case 'setPlayerDirection':
-					$this->SM->addCommand('setPlayerDirection', [$frame->fd, $args[0]]);
-					break;
+				switch($command)
+				{
+					case 'update':
+						$ws->push($frame->fd, json_encode([
+								'name' => 'update',
+								'data' => [
+									'player' => $this->SM->getData('player'),
+									'stuff' => $this->SM->getData('stuff')
+								]]
+						));
+						break;
+					case 'setPlayerDirection':
+						$this->SM->addCommand('setPlayerDirection', [$frame->fd, $args[0]]);
+						break;
+				}
 			}
 		});
 		$this->WebSocket->on('Close', function($ws, $fd)

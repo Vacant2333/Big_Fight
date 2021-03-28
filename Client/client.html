@@ -120,11 +120,11 @@ websocket.onopen = function(event)
 {
     console.log("Connected to WebSocket server.");
 
-    //连接成功 发送更新请求
+    //连接成功 计时器发送更新请求
     setInterval(function()
     {
         websocket.send('update');
-    }, 40);
+    }, 1000 / 15);
 };
 websocket.onclose = function(event)
 {
@@ -151,7 +151,6 @@ class KeyBoardListener
     68:右 -> 6
     83:下 -> 12
     87:上 -> 24
-    方向map
      */
     key_map = [
         {'direction' : 3, 'key' : [68, 87]},

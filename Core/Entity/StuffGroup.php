@@ -5,7 +5,7 @@ class StuffGroup
 {
 	private $stuff_id = [];
 	private $stuff_class = [];
-	private $stuff_max_num = 50;
+	private $stuff_max_num = 40;
 
 	public function __construct()
 	{
@@ -41,14 +41,6 @@ class StuffGroup
 		return $this->stuff_id[array_rand($this->stuff_id, 1)];
 	}
 
-	//更新Stuff最大数量
-	public function setStuffMaxNum($num)
-	{
-		$this->addStuff($num - $this->stuff_max_num);
-		$this->stuff_max_num = $num;
-	}
-
-	//删除Stuff
 	private function delStuff($id)
 	{
 		foreach($this->stuff_id as $key => $value)
@@ -61,7 +53,6 @@ class StuffGroup
 		unset($this->stuff_class[$id]);
 	}
 
-	//添加Stuff
 	private function addStuff($num)
 	{
 		while($num != 0)
@@ -72,7 +63,7 @@ class StuffGroup
 		}
 	}
 
-	//获得随机ID
+	//获得一个随机物资ID
 	private function getARandStuffId()
 	{
 		while(True)

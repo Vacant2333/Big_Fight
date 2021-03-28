@@ -6,15 +6,12 @@ class PlayerGroup
 	public $player_id = [];
 	public $player_class = [];
 
-	//添加玩家
 	public function addPlayer($id)
 	{
 		$this->player_id[] = $id;
 		$this->player_class[$id] = new Player($id);
-		$this->player_class[$id]->setRandCoordinate();
 	}
 
-	//删除玩家
 	public function delPlayer($id)
 	{
 		foreach($this->player_id as $key => $value)
@@ -27,7 +24,6 @@ class PlayerGroup
 		unset($this->player_class[$id]);
 	}
 
-	//设置玩家方向
 	public function setPlayerDirection($id, $direction)
 	{
 		$this->player_class[$id]->setDirection($direction);

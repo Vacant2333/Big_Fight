@@ -5,7 +5,6 @@ class Enity
 	public $area = 0;
 	public $coordinate = ['x' => 0, 'y' => 0];
 
-	//设置坐标
 	public function setCoordinate($x, $y)
 	{
 		$this->coordinate = ['x' => $x, 'y' => $y];
@@ -17,7 +16,6 @@ class Enity
 		$this->setCoordinate(rand(0, MAP_MAX_X), rand(0, MAP_MAX_Y));
 	}
 
-	//获得坐标
 	public function getCoordinate()
 	{
 		return $this->coordinate;
@@ -29,7 +27,6 @@ class Enity
 		return sqrt($this->area / 3.14);
 	}
 
-	//获得面积
 	public function getArea()
 	{
 		return $this->area;

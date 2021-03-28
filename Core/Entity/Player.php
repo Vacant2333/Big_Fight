@@ -11,6 +11,7 @@ class Player extends Enity
 	{
 		$this->id = $id;
 		$this->area = 300;
+		$this->setRandCoordinate();
 	}
 
 	//更新一帧
@@ -74,13 +75,11 @@ class Player extends Enity
 		return $this->speed;
 	}
 
-	//设置方向
 	public function setDirection($direction)
 	{
 		$this->direction = $direction;
 	}
 
-	//获取方向
 	public function getDirection()
 	{
 		return $this->direction;
