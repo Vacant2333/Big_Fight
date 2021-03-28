@@ -1,9 +1,8 @@
 <?php
-class Player
+include_once('Enity.php');
+
+class Player extends Enity
 {
-	public $id = 0;
-	public $area = 300;
-	public $coordinate = ['x' => 0, 'y' => 0];
 	public $speed = 0.08 / REFRESH_RATE;
 	public $direction = 0;
 
@@ -11,6 +10,7 @@ class Player
 	public function __construct($id)
 	{
 		$this->id = $id;
+		$this->area = 300;
 	}
 
 	//更新一帧
@@ -74,17 +74,6 @@ class Player
 		return $this->speed;
 	}
 
-	public function getArea()
-	{
-		return $this->area;
-	}
-
-	//获得半径
-	public function getRadius()
-	{
-		return sqrt($this->area / 3.14);
-	}
-
 	//设置方向
 	public function setDirection($direction)
 	{
@@ -95,23 +84,5 @@ class Player
 	public function getDirection()
 	{
 		return $this->direction;
-	}
-
-	//获得坐标
-	public function getCoordinate()
-	{
-		return $this->coordinate;
-	}
-
-	//设置坐标
-	public function setCoordinate($x, $y)
-	{
-		$this->coordinate = ['x' => $x, 'y' => $y];
-	}
-
-	//设置随机坐标
-	public function setRandCoordinate()
-	{
-		$this->setCoordinate(rand(0, MAP_MAX_X), rand(0, MAP_MAX_Y));
 	}
 }

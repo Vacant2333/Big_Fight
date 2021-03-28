@@ -5,12 +5,6 @@ class PlayerGroup
 {
 	public $player_id = [];
 	public $player_class = [];
-	public $test = 1;
-
-	public function __construct()
-	{
-
-	}
 
 	//添加玩家
 	public function addPlayer($id)
@@ -46,7 +40,7 @@ class PlayerGroup
 		foreach($this->player_class as $id => $class)
 		{
 			$re[] = [
-				'id' => $id,
+				'id' => $class->id,
 				'area' => $class->getArea(),
 				'speed' => $class->getSpeed(),
 				'radius' => $class->getRadius(),

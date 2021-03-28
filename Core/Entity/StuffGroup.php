@@ -1,17 +1,11 @@
 <?php
 include_once('Stuff.php');
-/*
- * Stuff实体组
- * getStuffGroupData 获得所有物资数据 返回二位数组
- * resetStuff($id)   重置一个物资
- */
+
 class StuffGroup
 {
 	private $stuff_id = [];
 	private $stuff_class = [];
-
-	//MAX 1500?
-	private $stuff_max_num = 30;
+	private $stuff_max_num = 50;
 
 	public function __construct()
 	{
@@ -25,7 +19,7 @@ class StuffGroup
 		foreach($this->stuff_class as $id => $class)
 		{
 			$re[] = [
-				'id' => $id,
+				'id' => $class->id,
 				'area' => $class->getArea(),
 				'coordinate' => $class->getCoordinate(),
 				'radius' => $class->getRadius()
@@ -72,7 +66,8 @@ class StuffGroup
 	{
 		while($num != 0)
 		{
-			$this->stuff_class[$this->getARandStuffId()] = new Stuff();
+			$id = $this->getARandStuffId();
+			$this->stuff_class[$id] = new Stuff($id);
 			$num--;
 		}
 	}
@@ -82,7 +77,7 @@ class StuffGroup
 	{
 		while(True)
 		{
-			$id = rand(1,4096);
+			$id = rand(1,1024);
 			if(!in_array($id, $this->stuff_id))
 			{
 				$this->stuff_id[] = $id;
