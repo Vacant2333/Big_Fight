@@ -124,7 +124,7 @@ websocket.onopen = function(event)
     setInterval(function()
     {
         websocket.send('update');
-    }, 1000 / 15);
+    }, 1000 / 10);
 };
 websocket.onclose = function(event)
 {

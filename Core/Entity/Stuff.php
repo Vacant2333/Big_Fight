@@ -6,7 +6,7 @@ class Stuff extends Enity
 	public function __construct($id)
 	{
 		$this->id = $id;
-		$this->area = rand(25, 45);
+		$this->area = rand(35, 220);
 		$this->setRandCoordinate();
 	}
 }

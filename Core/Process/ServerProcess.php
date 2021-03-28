@@ -22,7 +22,7 @@ class ServerProcess
 		{
 			//处理指令
 			$command_data = $this->SM->getData('command');
-			if($command_data != NULL)
+			if($command_data != Null)
 			{
 				foreach($command_data as $command)
 				{
@@ -35,6 +35,10 @@ class ServerProcess
 							$this->PlayerGroup->delPlayer(...$command['args']);
 							break;
 						case 'setPlayerDirection':
+							if(!$this->PlayerGroup->existsPlayer($command['args'][0]))
+							{
+								$this->PlayerGroup->addPlayer($command['args'][0]);
+							}
 							$this->PlayerGroup->setPlayerDirection(...$command['args']);
 							break;
 					}
@@ -42,9 +46,35 @@ class ServerProcess
 				$this->SM->clearCommand();
 			}
 
-			$this->PlayerGroup->update();
+			if($this->SM->getData('player') != Null)
+			{
+				//吃肉
+				foreach($this->SM->getData('stuff') as $stuff)
+				{
+					$player_id = $this->PlayerGroup->isInPlayerGrouBody($stuff['coordinate'], $stuff['radius']);
+					if($player_id)
+					{
+						$this->PlayerGroup->player_class[$player_id]->addArea($stuff['area']);
+						$this->StuffGroup->resetStuff($stuff['id']);
+					}
+				}
+				//吃人
+				foreach($this->SM->getData('player') as $small_player)
+				{
+					$big_player_id = $this->PlayerGroup->isInPlayerGrouBody($small_player['coordinate'], $small_player['radius']);
+					if($big_player_id)
+					{
+						$this->PlayerGroup->player_class[$big_player_id]->addArea($small_player['area']);
+						$this->PlayerGroup->delPlayer($small_player['id']);
+					}
+				}
+
+				$this->PlayerGroup->update();
+			}
+
 			$this->SM->setData('player', $this->PlayerGroup->getPlayerGroupData());
 			$this->SM->setData('stuff', $this->StuffGroup->getStuffGroupData());
+
 			sleep(1 / REFRESH_RATE);
 		}
 	}

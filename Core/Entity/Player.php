@@ -3,14 +3,14 @@ include_once('Enity.php');
 
 class Player extends Enity
 {
-	public $speed = 0.08 / REFRESH_RATE;
+	public $speed = 0.12 / REFRESH_RATE;
 	public $direction = 0;
 
 	//初始化 设置玩家ID,面积
 	public function __construct($id)
 	{
 		$this->id = $id;
-		$this->area = 300;
+		$this->area = 350;
 		$this->setRandCoordinate();
 	}
 

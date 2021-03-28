@@ -29,6 +29,11 @@ class PlayerGroup
 		$this->player_class[$id]->setDirection($direction);
 	}
 
+	public function existsPlayer($id)
+	{
+		return in_array($id, $this->player_id);
+	}
+
 	//获得玩家组数据
 	public function getPlayerGroupData()
 	{
@@ -45,6 +50,19 @@ class PlayerGroup
 			];
 		}
 		return $re;
+	}
+
+	//判断某个实体是否在组内的用户体内
+	public function isInPlayerGrouBody($coordinate, $radius)
+	{
+		foreach($this->player_class as $id => $class)
+		{
+			if($class->isInBody($coordinate, $radius))
+			{
+				return $id;
+			}
+		}
+		return False;
 	}
 
 	//更新一帧

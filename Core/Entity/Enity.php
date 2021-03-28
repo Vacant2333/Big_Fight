@@ -10,6 +10,21 @@ class Enity
 		$this->coordinate = ['x' => $x, 'y' => $y];
 	}
 
+	//判断某个实体是否在本实体内
+	public function isInBody($coordinate, $radius)
+	{
+		$self_radius = $this->getRadius();
+		if($self_radius >= $radius)
+		{
+			$distance = sqrt(pow(($coordinate['x'] - $this->coordinate['x']), 2) + pow(($coordinate['y'] - $this->coordinate['y']), 2));
+			if(($distance <= $self_radius) && ($coordinate != $this->coordinate))
+			{
+				return True;
+			}
+		}
+		return False;
+	}
+
 	//设置随机坐标
 	public function setRandCoordinate()
 	{
@@ -30,5 +45,10 @@ class Enity
 	public function getArea()
 	{
 		return $this->area;
+	}
+
+	public function addArea($num)
+	{
+		$this->area += $num;
 	}
 }
