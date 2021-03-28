@@ -10,10 +10,7 @@ class ServerProcess
 		//初始化
 		$this->SM = $SM;
 		$this->PlayerGroup = new PlayerGroup();
-		print("PlayerGroup initialization complete!\n");
 		$this->StuffGroup = new StuffGroup();
-		print("StuffGroup initialization complete!\n");
-
 	}
 
 	public function run()
@@ -74,8 +71,7 @@ class ServerProcess
 
 			$this->SM->setData('player', $this->PlayerGroup->getPlayerGroupData());
 			$this->SM->setData('stuff', $this->StuffGroup->getStuffGroupData());
-
-			sleep(1 / REFRESH_RATE);
 		}
+		sleep(1 / REFRESH_RATE);
 	}
 }

@@ -16,7 +16,6 @@ class HttpProcess
 
 	public function run()
 	{
-		print("Client http server initialization complete!\n");
 		$this->http_server->start();
 	}
 }
