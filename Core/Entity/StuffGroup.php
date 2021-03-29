@@ -5,7 +5,7 @@ class StuffGroup
 {
 	private $stuff_id = [];
 	private $stuff_class = [];
-	private $stuff_max_num = 40;
+	private $stuff_max_num = 50;
 
 	public function __construct()
 	{

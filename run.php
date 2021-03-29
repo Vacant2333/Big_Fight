@@ -1,9 +1,14 @@
 <?php
 use Swoole\Process;
 
+define('REFRESH_RATE', 30);
+
+define('PLAYER_AREA', 400);
+define('PLAYER_SPEED', 80);
+define('STUFF_AREA', [25,125]);
+
 define('MAP_MAX_X', 800);
 define('MAP_MAX_Y', 800);
-define('REFRESH_RATE', 25);
 define('HTTP_PORT', 8002);
 define('WEBSOCKET_PORT', 8001);
 
