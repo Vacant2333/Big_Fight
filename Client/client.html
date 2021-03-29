@@ -85,9 +85,9 @@ class StageDraw
             var stuff_data = this.all_stuff_data[key];
             var stuff_class = new Ring(
                 {
-                    pos: [stuff_data['coordinate']['x'], stuff_data['coordinate']['y']],
+                    pos: [stuff_data[2][0], stuff_data[2][1]],
                     innerRadius: 0,
-                    outerRadius: stuff_data['radius'],
+                    outerRadius: stuff_data[1],
                     fillColor: '#ff5722e6',
                 });
             layer.append(stuff_class);
@@ -102,9 +102,9 @@ class StageDraw
             var player_data = this.all_player_data[key];
             var player_class = new Ring(
                 {
-                    pos: [player_data['coordinate']['x'], player_data['coordinate']['y']],
+                    pos: [player_data[2][0], player_data[2][1]],
                     innerRadius: 0,
-                    outerRadius: player_data['radius'],
+                    outerRadius: player_data[1],
                     fillColor: '#03a9f4bf',
                 });
             layer.append(player_class);

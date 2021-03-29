@@ -43,10 +43,10 @@ class ServerProcess
 				$this->SM->clearCommand();
 			}
 
-			if($this->SM->getData('player') != Null)
+			if($this->PlayerGroup->getPlayerGroupData() != Null)
 			{
 				//吃肉
-				foreach($this->SM->getData('stuff') as $stuff)
+				foreach($this->StuffGroup->getStuffGroupData() as $stuff)
 				{
 					$player_id = $this->PlayerGroup->isInPlayerGrouBody($stuff['coordinate'], $stuff['radius']);
 					if($player_id)
@@ -55,8 +55,8 @@ class ServerProcess
 						$this->StuffGroup->resetStuff($stuff['id']);
 					}
 				}
-				//吃人
-				foreach($this->SM->getData('player') as $small_player)
+				//吃玩家
+				foreach($this->PlayerGroup->getPlayerGroupData() as $small_player)
 				{
 					$big_player_id = $this->PlayerGroup->isInPlayerGrouBody($small_player['coordinate'], $small_player['radius']);
 					if($big_player_id)
@@ -69,9 +69,9 @@ class ServerProcess
 				$this->PlayerGroup->update();
 			}
 
-			$this->SM->setData('player', $this->PlayerGroup->getPlayerGroupData());
-			$this->SM->setData('stuff', $this->StuffGroup->getStuffGroupData());
+			$this->SM->setData('player', $this->PlayerGroup->getPlayerGroupData(true));
+			$this->SM->setData('stuff', $this->StuffGroup->getStuffGroupData(true));
+			usleep(round(1000000 / REFRESH_RATE));
 		}
-		sleep(1 / REFRESH_RATE);
 	}
 }

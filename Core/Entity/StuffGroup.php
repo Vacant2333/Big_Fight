@@ -13,17 +13,28 @@ class StuffGroup
 	}
 
 	//获得所有物资数据
-	public function getStuffGroupData()
+	public function getStuffGroupData($compress = False)
 	{
 		$re = [];
 		foreach($this->stuff_class as $id => $class)
 		{
-			$re[] = [
-				'id' => $class->id,
-				'area' => $class->getArea(),
-				'coordinate' => $class->getCoordinate(),
-				'radius' => $class->getRadius()
-			];
+			if($compress)
+			{
+				$re[] = [
+						$class->id,
+						$class->getRadius(),
+						[$class->getCoordinate()['x'], $class->getCoordinate()['y']]
+				];
+			}
+			else
+			{
+				$re[] = [
+						'id' => $class->id,
+						'area' => $class->getArea(),
+						'coordinate' => $class->getCoordinate(),
+						'radius' => $class->getRadius()
+				];
+			}
 		}
 		return $re;
 	}

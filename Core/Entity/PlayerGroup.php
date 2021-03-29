@@ -35,19 +35,30 @@ class PlayerGroup
 	}
 
 	//获得玩家组数据
-	public function getPlayerGroupData()
+	public function getPlayerGroupData($compress = False)
 	{
 		$re = [];
 		foreach($this->player_class as $id => $class)
 		{
-			$re[] = [
-				'id' => $class->id,
-				'area' => $class->getArea(),
-				'speed' => $class->getSpeed(),
-				'radius' => $class->getRadius(),
-				'direction' => $class->getDirection(),
-				'coordinate' => $class->getCoordinate()
-			];
+			if($compress)
+			{
+				$re[] = [
+						$class->id,
+						$class->getRadius(),
+						[$class->getCoordinate()['x'], $class->getCoordinate()['y']]
+				];
+			}
+			else
+			{
+				$re[] = [
+						'id' => $class->id,
+						'area' => $class->getArea(),
+						'speed' => $class->getSpeed(),
+						'radius' => $class->getRadius(),
+						'direction' => $class->getDirection(),
+						'coordinate' => $class->getCoordinate()
+				];
+			}
 		}
 		return $re;
 	}

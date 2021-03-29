@@ -3,7 +3,7 @@ use Swoole\Process;
 
 define('MAP_MAX_X', 800);
 define('MAP_MAX_Y', 800);
-define('REFRESH_RATE', 15);
+define('REFRESH_RATE', 25);
 define('HTTP_PORT', 8002);
 define('WEBSOCKET_PORT', 8001);
 
@@ -30,6 +30,7 @@ $process_client = new Process(function()
 {
 	(new HttpProcess(HTTP_PORT))->run();
 });
+
 $process_server->start();
 $process_websocket->start();
 $process_client->start();

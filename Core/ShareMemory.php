@@ -1,8 +1,8 @@
 <?php
 /*
  * 实现:   Swoole\Table
- * 玩家数据 player
- * 物资数据 stuff
+ * 玩家数据(压缩) player
+ * 物资数据(压缩) stuff
  * 指令数据 command
  */
 class ShareMemory

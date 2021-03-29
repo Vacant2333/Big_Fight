@@ -3,7 +3,7 @@ include_once('Enity.php');
 
 class Player extends Enity
 {
-	public $speed = 0.12 / REFRESH_RATE;
+	public $speed = 60 / REFRESH_RATE;
 	public $direction = 0;
 
 	//初始化 设置玩家ID,面积
