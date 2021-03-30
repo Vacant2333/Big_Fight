@@ -1,7 +1,7 @@
 <?php
-include_once('Enity.php');
+include_once('Entity.php');
 
-class Stuff extends Enity
+class Stuff extends Entity
 {
 	public function __construct($id)
 	{

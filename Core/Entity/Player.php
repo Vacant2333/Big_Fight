@@ -1,7 +1,7 @@
 <?php
-include_once('Enity.php');
+include_once('Entity.php');
 
-class Player extends Enity
+class Player extends Entity
 {
 	public $speed = PLAYER_SPEED / REFRESH_RATE;
 	public $direction = 0;

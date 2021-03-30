@@ -47,7 +47,7 @@ class ServerProcess
 				//吃肉
 				foreach($this->StuffGroup->getStuffGroupData() as $stuff)
 				{
-					$player_id = $this->PlayerGroup->isInPlayerGrouBody($stuff['coordinate'], $stuff['radius']);
+					$player_id = $this->PlayerGroup->isInPlayerGroupBody($stuff['coordinate'], $stuff['radius']);
 					if($player_id)
 					{
 						$this->PlayerGroup->player_class[$player_id]->addArea($stuff['area']);
@@ -57,7 +57,7 @@ class ServerProcess
 				//吃玩家
 				foreach($this->PlayerGroup->getPlayerGroupData() as $small_player)
 				{
-					$big_player_id = $this->PlayerGroup->isInPlayerGrouBody($small_player['coordinate'], $small_player['radius']);
+					$big_player_id = $this->PlayerGroup->isInPlayerGroupBody($small_player['coordinate'], $small_player['radius']);
 					if($big_player_id)
 					{
 						$this->PlayerGroup->player_class[$big_player_id]->addArea($small_player['area']);

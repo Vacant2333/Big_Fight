@@ -1,5 +1,5 @@
 <?php
-class Enity
+class Entity
 {
 	public $id;
 	public $area = 0;

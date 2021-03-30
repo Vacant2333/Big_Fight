@@ -1,7 +1,7 @@
 <?php
 use Swoole\Process;
 
-define('REFRESH_RATE', 25);
+define('REFRESH_RATE', 30);
 
 define('PLAYER_AREA', 400);
 define('PLAYER_SPEED', 80);

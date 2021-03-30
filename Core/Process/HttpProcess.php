@@ -6,6 +6,8 @@ class HttpProcess
 	public function __construct($port)
 	{
 		$this->http_server = new Swoole\Http\Server('0.0.0.0', $port);
+		//设置压缩等级(1~9)
+		$this->http_server->set(['http_compression_level' => 9]);
 
 		$this->http_server->on('Request', function($request, $response)
 		{

@@ -8,6 +8,8 @@ class WebSocketProcess
 	{
 		$this->SM = $SM;
 		$this->websocket = new Swoole\WebSocket\Server('0.0.0.0', $port);
+		//启用压缩
+		$this->websocket->set(['websocket_compression' => True]);
 
 		$this->websocket->on('Open', function($ws, $request)
 		{
@@ -48,7 +50,7 @@ class WebSocketProcess
 									'data' => [
 											'player' => $this->SM->getData('player'),
 											'stuff' => $this->SM->getData('stuff')
-									]]));
+									]]), SWOOLE_WEBSOCKET_OPCODE_TEXT, SWOOLE_WEBSOCKET_FLAG_FIN | SWOOLE_WEBSOCKET_FLAG_COMPRESS);
 				}
 			}
 		});
