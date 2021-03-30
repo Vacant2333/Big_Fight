@@ -1,8 +1,9 @@
 <?php
 /*
- * 实现:   Swoole\Table
- * 玩家数据(压缩) player
- * 物资数据(压缩) stuff
+ * 进程间共享数据
+ * 实现:Swoole\Table
+ * 玩家数据 player
+ * 物资数据 stuff
  * 指令数据 command
  */
 class ShareMemory
@@ -12,7 +13,7 @@ class ShareMemory
 	public function __construct()
 	{
 		$table = new Swoole\Table(64);
-		$table->column('data', Swoole\Table::TYPE_STRING, 64*1024*16);
+		$table->column('data', Swoole\Table::TYPE_STRING, 32*1024*8);
 		$table->create();
 
 		$this->table = $table;

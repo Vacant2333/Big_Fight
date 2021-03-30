@@ -36,7 +36,7 @@ class WebSocketProcess
 
 	public function run()
 	{
-		//计时器实时推送游戏数据
+		//实时推送游戏数据
 		Swoole\Timer::tick(round(1000 / REFRESH_RATE), function()
 		{
 			foreach($this->websocket->connections as $fd)

@@ -46,12 +46,6 @@ class StuffGroup
 		$this->addStuff(1);
 	}
 
-	//获取一个随机 存在的物资ID
-	public function getARealRandStuffId()
-	{
-		return $this->stuff_id[array_rand($this->stuff_id, 1)];
-	}
-
 	private function delStuff($id)
 	{
 		foreach($this->stuff_id as $key => $value)

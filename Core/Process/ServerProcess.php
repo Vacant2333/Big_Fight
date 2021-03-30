@@ -7,7 +7,6 @@ class ServerProcess
 
 	public function __construct($SM)
 	{
-		//初始化
 		$this->SM = $SM;
 		$this->PlayerGroup = new PlayerGroup();
 		$this->StuffGroup = new StuffGroup();
@@ -15,7 +14,7 @@ class ServerProcess
 
 	public function run()
 	{
-		while(1)
+		while(True)
 		{
 			//处理指令
 			$command_data = $this->SM->getData('command');
