@@ -1,17 +1,33 @@
 <?php
+declare(strict_types = 1);
 include_once('Entity.php');
 
 class Player extends Entity
 {
-	public $speed = PLAYER_SPEED / REFRESH_RATE;
-	public $direction = 0;
+	public int $direction = 0;
+	public float $speed = PLAYER_SPEED / REFRESH_RATE;
 
 	//初始化 设置玩家ID,面积
-	public function __construct($id)
+	public function __construct(int $id)
 	{
 		$this->id = $id;
 		$this->area = PLAYER_AREA;
 		$this->setRandCoordinate();
+	}
+
+	public function getSpeed() : float
+	{
+		return $this->speed;
+	}
+
+	public function setDirection(int $direction)
+	{
+		$this->direction = $direction;
+	}
+
+	public function getDirection() : int
+	{
+		return $this->direction;
 	}
 
 	//更新一帧
@@ -68,20 +84,5 @@ class Player extends Entity
 					'y' => ($y < 0 or $y > MAP_MAX_Y) ? (($y < 0) ? 0 : MAP_MAX_Y) : $y
 			];
 		}
-	}
-
-	public function getSpeed()
-	{
-		return $this->speed;
-	}
-
-	public function setDirection($direction)
-	{
-		$this->direction = $direction;
-	}
-
-	public function getDirection()
-	{
-		return $this->direction;
 	}
 }

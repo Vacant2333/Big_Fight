@@ -1,9 +1,9 @@
 <?php
 class ServerProcess
 {
-	public $StuffGroup;
-	public $PlayerGroup;
-	public $SM;
+	public StuffGroup $StuffGroup;
+	public PlayerGroup $PlayerGroup;
+	public ShareMemory $SM;
 
 	public function __construct($SM)
 	{
@@ -50,7 +50,8 @@ class ServerProcess
 					$player_id = $this->PlayerGroup->isInPlayerGroupBody($stuff['coordinate'], $stuff['radius']);
 					if($player_id)
 					{
-						$this->PlayerGroup->player_class[$player_id]->addArea($stuff['area']);
+						$this->PlayerGroup->addPlayerArea($player_id, $stuff['area']);
+						//$this->PlayerGroup->player_class[$player_id]->addArea($stuff['area']);
 						$this->StuffGroup->resetStuff($stuff['id']);
 					}
 				}
@@ -60,7 +61,8 @@ class ServerProcess
 					$big_player_id = $this->PlayerGroup->isInPlayerGroupBody($small_player['coordinate'], $small_player['radius']);
 					if($big_player_id)
 					{
-						$this->PlayerGroup->player_class[$big_player_id]->addArea($small_player['area']);
+						$this->PlayerGroup->addPlayerArea($big_player_id, $small_player['area']);
+						//$this->PlayerGroup->player_class[$big_player_id]->addArea($small_player['area']);
 						$this->PlayerGroup->delPlayer($small_player['id']);
 					}
 				}

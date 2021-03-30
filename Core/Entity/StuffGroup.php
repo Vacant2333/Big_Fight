@@ -1,11 +1,12 @@
 <?php
+declare(strict_types = 1);
 include_once('Stuff.php');
 
 class StuffGroup
 {
-	private $stuff_id = [];
-	private $stuff_class = [];
-	private $stuff_max_num = 50;
+	private array $stuff_id = [];
+	private array $stuff_class = [];
+	private int $stuff_max_num = 50;
 
 	public function __construct()
 	{
@@ -13,7 +14,7 @@ class StuffGroup
 	}
 
 	//获得所有物资数据
-	public function getStuffGroupData($compress = False)
+	public function getStuffGroupData(bool $compress = False) : array
 	{
 		$re = [];
 		foreach($this->stuff_class as $id => $class)
@@ -40,13 +41,13 @@ class StuffGroup
 	}
 
 	//重置一个Stuff
-	public function resetStuff($id)
+	public function resetStuff(int $id)
 	{
 		$this->delStuff($id);
 		$this->addStuff(1);
 	}
 
-	private function delStuff($id)
+	private function delStuff(int $id)
 	{
 		foreach($this->stuff_id as $key => $value)
 		{
@@ -58,7 +59,7 @@ class StuffGroup
 		unset($this->stuff_class[$id]);
 	}
 
-	private function addStuff($num)
+	private function addStuff(int $num)
 	{
 		while($num != 0)
 		{
@@ -69,7 +70,7 @@ class StuffGroup
 	}
 
 	//获得一个随机物资ID
-	private function getARandStuffId()
+	private function getARandStuffId() : int
 	{
 		while(True)
 		{

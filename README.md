@@ -1,7 +1,7 @@
 # 球球大作战
 <h2>
-在线多人H5游戏(H5客户端,服务端)
-WASD 移动
+在线多人H5游戏(H5客户端, 服务端)
+W A S D 控制
 </h2>
 技术栈:
 <br>
@@ -14,12 +14,12 @@ PHP7.4+
 <h2>
 安装:
 </h2>
-环境要求:linux(centos),php7.4+(启用Swoole拓展)
+环境要求:Linux,PHP7.4+(启用Swoole拓展)
 <br>
-clone本项目,开放8001 8002端口
+Clone本项目,开放8001 8002端口
 <br>
 php run.php
 <br>
-访问http://localhost:8002
+访问 http://localhost:8002
 <br>
 最后更新时间:2021.3.30

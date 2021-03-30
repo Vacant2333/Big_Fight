@@ -1,11 +1,11 @@
 <?php
 use Swoole\Process;
 
-define('REFRESH_RATE', 30);
+define('REFRESH_RATE', 35);
 
-define('PLAYER_AREA', 400);
-define('PLAYER_SPEED', 80);
-define('STUFF_AREA', [25,125]);
+define('PLAYER_AREA', 360);
+define('PLAYER_SPEED', 85);
+define('STUFF_AREA', [50, 120]);
 
 define('MAP_MAX_X', 800);
 define('MAP_MAX_Y', 800);
@@ -19,6 +19,7 @@ include_once('Core/Process/HttpProcess.php');
 include_once('Core/Process/ServerProcess.php');
 include_once('Core/Process/WebSocketProcess.php');
 
+//共享内存
 $SM = new ShareMemory();
 
 $process_server = new Process(function() use ($SM)
@@ -40,5 +41,5 @@ $process_server->start();
 $process_websocket->start();
 $process_client->start();
 
-print("Server start up now!\n");
+print("Server started now!\n");
 Process::wait(true);

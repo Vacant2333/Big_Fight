@@ -1,14 +1,15 @@
 <?php
+declare(strict_types = 1);
 /*
  * 进程间共享数据
- * 实现:Swoole\Table
+ * 实现: Swoole\Table
  * 玩家数据 player
  * 物资数据 stuff
  * 指令数据 command
  */
 class ShareMemory
 {
-	public $table;
+	public Swoole\Table $table;
 
 	public function __construct()
 	{
@@ -19,17 +20,25 @@ class ShareMemory
 		$this->table = $table;
 	}
 
-	public function setData($name, $data)
+	public function setData(string $name, array $data)
 	{
 		$this->table->set($name, ['data' => json_encode($data)]);
 	}
 
-	public function getData($name)
+	public function getData(string $name) : array
 	{
-		return  json_decode($this->table->get($name, 'data'), True);
+		$data = $this->table->get($name, 'data');
+		if($data)
+		{
+			return  json_decode($this->table->get($name, 'data'), True);
+		}
+		else
+		{
+			return [];
+		}
 	}
 
-	public function addCommand($command, $args)
+	public function addCommand(string $command, array $args)
 	{
 		$command_data = $this->getData('command');
 		$command_data[] = [

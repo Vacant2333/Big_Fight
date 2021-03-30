@@ -1,18 +1,19 @@
 <?php
+declare(strict_types = 1);
 include_once('Player.php');
 
 class PlayerGroup
 {
-	public $player_id = [];
-	public $player_class = [];
+	private array $player_id = [];
+	private array $player_class = [];
 
-	public function addPlayer($id)
+	public function addPlayer(int $id)
 	{
 		$this->player_id[] = $id;
 		$this->player_class[$id] = new Player($id);
 	}
 
-	public function delPlayer($id)
+	public function delPlayer(int $id)
 	{
 		foreach($this->player_id as $key => $value)
 		{
@@ -24,18 +25,18 @@ class PlayerGroup
 		unset($this->player_class[$id]);
 	}
 
-	public function setPlayerDirection($id, $direction)
+	public function setPlayerDirection(int $id, int $direction)
 	{
 		$this->player_class[$id]->setDirection($direction);
 	}
 
-	public function existsPlayer($id)
+	public function existsPlayer(int $id) : bool
 	{
 		return in_array($id, $this->player_id);
 	}
 
 	//获得玩家组数据
-	public function getPlayerGroupData($compress = False)
+	public function getPlayerGroupData(bool $compress = False) : array
 	{
 		$re = [];
 		foreach($this->player_class as $id => $class)
@@ -64,7 +65,7 @@ class PlayerGroup
 	}
 
 	//判断某个实体是否在组内的用户体内
-	public function isInPlayerGroupBody($coordinate, $radius)
+	public function isInPlayerGroupBody(array $coordinate, float $radius) : int
 	{
 		foreach($this->player_class as $id => $class)
 		{
@@ -73,7 +74,12 @@ class PlayerGroup
 				return $id;
 			}
 		}
-		return False;
+		return 0;
+	}
+
+	public function addPlayerArea(int $id, int $area)
+	{
+		$this->player_class[$id]->addArea($area);
 	}
 
 	//更新一帧

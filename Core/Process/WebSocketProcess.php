@@ -1,8 +1,8 @@
 <?php
 class WebSocketProcess
 {
-	public $websocket;
-	public $SM;
+	public Swoole\WebSocket\Server $websocket;
+	public ShareMemory $SM;
 
 	public function __construct($port, $SM)
 	{

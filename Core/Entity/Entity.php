@@ -1,17 +1,19 @@
 <?php
+declare(strict_types = 1);
+
 class Entity
 {
-	public $id;
-	public $area = 0;
-	public $coordinate = ['x' => 0, 'y' => 0];
+	public int $id;
+	public int $area = 0;
+	public array $coordinate = ['x' => 0, 'y' => 0];
 
-	public function setCoordinate($x, $y)
+	public function setCoordinate(float $x, float $y)
 	{
 		$this->coordinate = ['x' => $x, 'y' => $y];
 	}
 
 	//判断某个实体是否在本实体内
-	public function isInBody($coordinate, $radius)
+	public function isInBody(array $coordinate, float $radius) : bool
 	{
 		$self_radius = $this->getRadius();
 		if($self_radius >= $radius)
@@ -31,23 +33,23 @@ class Entity
 		$this->setCoordinate(rand(0, MAP_MAX_X), rand(0, MAP_MAX_Y));
 	}
 
-	public function getCoordinate()
+	public function getCoordinate() : array
 	{
 		return $this->coordinate;
 	}
 
 	//获得半径
-	public function getRadius()
+	public function getRadius() : float
 	{
 		return sqrt($this->area / 3.14);
 	}
 
-	public function getArea()
+	public function getArea() : int
 	{
 		return $this->area;
 	}
 
-	public function addArea($num)
+	public function addArea(int $num)
 	{
 		$this->area += $num;
 	}
