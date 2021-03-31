@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 class ServerProcess
 {
 	public StuffGroup $StuffGroup;
@@ -72,7 +74,7 @@ class ServerProcess
 
 			$this->SM->setData('player', $this->PlayerGroup->getPlayerGroupData(true));
 			$this->SM->setData('stuff', $this->StuffGroup->getStuffGroupData(true));
-			usleep(round(1000000 / REFRESH_RATE));
+			usleep(intval(1000000 / REFRESH_RATE));
 		}
 	}
 }

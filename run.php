@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 use Swoole\Process;
 
 define('REFRESH_RATE', 35);

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 class HttpProcess
 {
 	public Swoole\Http\Server $http_server;

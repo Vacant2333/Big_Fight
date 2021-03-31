@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 class WebSocketProcess
 {
 	public Swoole\WebSocket\Server $websocket;
@@ -25,7 +27,7 @@ class WebSocketProcess
 				switch($command)
 				{
 					case 'setPlayerDirection':
-						$this->SM->addCommand('setPlayerDirection', [$frame->fd, $args[0]]);
+						$this->SM->addCommand('setPlayerDirection', [$frame->fd, intval($args[0])]);
 						break;
 				}
 			}
@@ -39,7 +41,7 @@ class WebSocketProcess
 	public function run()
 	{
 		//实时推送游戏数据
-		Swoole\Timer::tick(round(1000 / REFRESH_RATE), function()
+		Swoole\Timer::tick(intval(1000 / REFRESH_RATE), function()
 		{
 			foreach($this->websocket->connections as $fd)
 			{
