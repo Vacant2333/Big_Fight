@@ -4,8 +4,8 @@ include_once('Entity.php');
 
 class Player extends Entity
 {
-	public int $direction = 0;
-	public float $speed = PLAYER_SPEED / REFRESH_RATE;
+	private int $direction = 0;
+	private float $speed = PLAYER_SPEED / REFRESH_RATE;
 
 	//初始化 设置玩家ID,面积
 	public function __construct(int $id)
@@ -38,7 +38,7 @@ class Player extends Entity
 			$x = $this->coordinate['x'];
 			$y = $this->coordinate['y'];
 			//斜走的速度
-			$bevel_speed = $this->speed / sqrt(2);
+			$bevel_speed = round($this->speed / sqrt(2), 2);
 			switch($this->getDirection())
 			{
 				case 3:

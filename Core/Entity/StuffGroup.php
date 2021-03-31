@@ -19,7 +19,7 @@ class StuffGroup
 		$re = [];
 		foreach($this->stuff_class as $id => $class)
 		{
-			if($compress)
+			if($compress == True)
 			{
 				$re[] = [
 						$class->id,
@@ -51,7 +51,7 @@ class StuffGroup
 	{
 		foreach($this->stuff_id as $key => $value)
 		{
-			if($value == $id)
+			if($value === $id)
 			{
 				unset($this->stuff_id[$key]);
 			}
@@ -61,7 +61,7 @@ class StuffGroup
 
 	private function addStuff(int $num)
 	{
-		while($num != 0)
+		while($num !== 0)
 		{
 			$id = $this->getARandStuffId();
 			$this->stuff_class[$id] = new Stuff($id);

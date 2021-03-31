@@ -20,7 +20,7 @@ class ServerProcess
 		{
 			//处理指令
 			$command_data = $this->SM->getData('command');
-			if($command_data != Null)
+			if($command_data !== Null)
 			{
 				foreach($command_data as $command)
 				{
@@ -44,7 +44,7 @@ class ServerProcess
 				$this->SM->clearCommand();
 			}
 
-			if($this->PlayerGroup->getPlayerGroupData() != Null)
+			if($this->PlayerGroup->getPlayerGroupData() !== Null)
 			{
 				//吃肉
 				foreach($this->StuffGroup->getStuffGroupData() as $stuff)
@@ -53,7 +53,6 @@ class ServerProcess
 					if($player_id)
 					{
 						$this->PlayerGroup->addPlayerArea($player_id, $stuff['area']);
-						//$this->PlayerGroup->player_class[$player_id]->addArea($stuff['area']);
 						$this->StuffGroup->resetStuff($stuff['id']);
 					}
 				}
@@ -64,7 +63,6 @@ class ServerProcess
 					if($big_player_id)
 					{
 						$this->PlayerGroup->addPlayerArea($big_player_id, $small_player['area']);
-						//$this->PlayerGroup->player_class[$big_player_id]->addArea($small_player['area']);
 						$this->PlayerGroup->delPlayer($small_player['id']);
 					}
 				}

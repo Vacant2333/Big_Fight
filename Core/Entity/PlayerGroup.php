@@ -17,7 +17,7 @@ class PlayerGroup
 	{
 		foreach($this->player_id as $key => $value)
 		{
-			if($value == $id)
+			if($value === $id)
 			{
 				unset($this->player_id[$key]);
 			}
@@ -69,7 +69,7 @@ class PlayerGroup
 	{
 		foreach($this->player_class as $id => $class)
 		{
-			if($class->isInBody($coordinate, $radius))
+			if($class->isInBody($coordinate, $radius) == True)
 			{
 				return $id;
 			}

@@ -8,8 +8,6 @@
     <body>
         <div id="stage" style="height: 800px; width: 800px;"></div>
     </body>
-</html>
-
 <script>
 const {Scene, Sprite, Ring} = spritejs;
 const container = document.getElementById('stage');
@@ -51,11 +49,11 @@ class StageDraw
     //清空Class
     clearClass()
     {
-        for(var key = 0; key < this.all_stuff_class.length; key++)
+        for(let key = 0; key < this.all_stuff_class.length; key++)
         {
             this.all_stuff_class[key].remove();
         }
-        for(var key = 0; key < this.all_player_class.length; key++)
+        for(let key = 0; key < this.all_player_class.length; key++)
         {
             this.all_player_class[key].remove();
         }
@@ -79,10 +77,10 @@ class StageDraw
 
     drawStuff()
     {
-        for(var key = 0; key < this.all_stuff_data.length; key++)
+        for(let key = 0; key < this.all_stuff_data.length; key++)
         {
-            var stuff_data = this.all_stuff_data[key];
-            var stuff_class = new Ring(
+            let stuff_data = this.all_stuff_data[key];
+            let stuff_class = new Ring(
                 {
                     pos: [stuff_data[2][0], stuff_data[2][1]],
                     innerRadius: 0,
@@ -96,10 +94,10 @@ class StageDraw
 
     drawPlayer()
     {
-        for(var key = 0; key < this.all_player_data.length; key++)
+        for(let key = 0; key < this.all_player_data.length; key++)
         {
-            var player_data = this.all_player_data[key];
-            var player_class = new Ring(
+            let player_data = this.all_player_data[key];
+            let player_class = new Ring(
                 {
                     pos: [player_data[2][0], player_data[2][1]],
                     innerRadius: 0,
@@ -111,9 +109,9 @@ class StageDraw
         }
     }
 }
-var SD = new StageDraw();
+let SD = new StageDraw();
 
-//WebScoket
+//WebSocket
 websocket = new WebSocket('ws://39.96.4.47:8001');
 websocket.onopen = function(event)
 {
@@ -125,7 +123,7 @@ websocket.onclose = function(event)
 };
 websocket.onmessage = function(event)
 {
-    data = JSON.parse(event.data);
+    let data = JSON.parse(event.data);
 
     switch(data['name'])
     {
@@ -191,7 +189,7 @@ class KeyBoardListener
         }
         else
         {
-            for(var i = 0; i < this.key_map.length; i++)
+            for(let i = 0; i < this.key_map.length; i++)
             {
                 let now_key_map = this.key_map[i];
                 if(now_key_map['key'].toString() === this.down_key.sort().toString())
@@ -227,3 +225,4 @@ class KeyBoardListener
 }
 (new KeyBoardListener()).init();
 </script>
+</html>
